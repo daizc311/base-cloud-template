@@ -3,6 +3,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+### MAVEN ###
+.mvn
+mvn*
+
+
 
 ### STS ###
 .apt_generated
@@ -31,3 +36,18 @@ build/
 
 ### VS Code ###
 .vscode/
+.mvn/
+admin/admin-api/src/
+admin/admin-biz/src/main/resources/
+admin/admin-biz/src/test/
+common/common-core/src/main/resources/
+common/common-core/src/test/
+common/common-dependencies/src/
+common/common-persistence/src/
+common/common-web/src/
+mvnw
+mvnw.cmd
+portal/portal-api/src/
+portal/portal-biz/src/main/java/cn/dreamccc/businezz/portal/
+portal/portal-biz/src/main/resources/
+portal/portal-biz/src/test/
