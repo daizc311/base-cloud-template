@@ -33,6 +33,7 @@
 <!--                </exclusion>-->
 <!--            </exclusions>-->
 <!--        </dependency>-->
+        <!--监控sql日志-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>

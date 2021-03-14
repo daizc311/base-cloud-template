@@ -1,4 +1,4 @@
-package cn.dreamccc.businezz;
+package cn.dreamccc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
