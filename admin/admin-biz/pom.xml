@@ -12,4 +12,14 @@
     <artifactId>admin-biz</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.dreamccc</groupId>
+            <artifactId>common-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.dreamccc</groupId>
+            <artifactId>common-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>

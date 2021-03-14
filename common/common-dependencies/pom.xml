@@ -40,6 +40,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.dreamccc</groupId>
+                <artifactId>common-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dreamccc</groupId>
                 <artifactId>common-web</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
