@@ -2,6 +2,7 @@ package cn.dreamccc.common.web.swagger;
 
 import cn.hutool.core.text.StrFormatter;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
