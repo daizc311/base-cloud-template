@@ -1,0 +1,22 @@
+{
+  "properties": [
+    {
+      "name": "project.name",
+      "type": "java.lang.String",
+      "description": "系统名称.",
+      "sourceType": "cn.dreamccc.common.core.properties.ProjectProperties"
+    },
+    {
+      "name": "project.description",
+      "type": "java.lang.String",
+      "description": "系统描述.",
+      "sourceType": "cn.dreamccc.common.core.properties.ProjectProperties"
+    },
+    {
+      "name": "project.version",
+      "type": "java.lang.String",
+      "description": "系统版本号.",
+      "sourceType": "cn.dreamccc.common.core.properties.ProjectProperties"
+    }
+  ]
+}
