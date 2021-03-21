@@ -1,13 +1,19 @@
 package cn.dreamccc.admin.controller;
 
+import cn.dreamccc.admin.mapper.VueRouterMapper;
+import cn.dreamccc.admin.model.VueRouter;
 import cn.dreamccc.common.model.DResp;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -15,6 +21,16 @@ import javax.servlet.http.HttpServletRequest;
 @Api(value = "菜单", tags = "菜单")
 public class MenuController {
 
+    @Autowired
+    VueRouterMapper vueRouterMapper;
+
+    @RequestMapping("/listAllRouter")
+    public DResp<Object> listAllRouter() {
+
+        Map<String, VueRouter> routerMap = vueRouterMapper.selectList(Wrappers.emptyWrapper()).stream().collect(Collectors.toMap(VueRouter::getName, v -> v));
+//        return DResp.data(vueRouterMapper.selectList(Wrappers.emptyWrapper()));
+        return DResp.data(routerMap);
+    }
 
     @RequestMapping("/listMenu")
     public DResp<?> listMenu(HttpServletRequest request) {
