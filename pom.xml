@@ -7,6 +7,7 @@
         <module>common</module>
         <module>business-admin</module>
         <module>business-portal</module>
+        <module>business-upms</module>
         <module>common-gateway</module>
     </modules>
 
@@ -24,12 +25,13 @@
         <maven.test.skip>true</maven.test.skip>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <output.path>/builds/kl-cloud-group/kl-cloud/output</output.path>
+        <output.path>/output</output.path>
         <!-- docker -->
 
         <!-- 基础版本 -->
         <spring-boot.version>2.4.3</spring-boot.version>
         <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <knife4j.version>2.0.8</knife4j.version>
     </properties>
     <dependencies>
@@ -83,6 +85,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
@@ -116,61 +125,61 @@
         </resources>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <id>ant-copy-jar</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <target>
-                                    <copy todir="${output.path}/${artifactId}/">
-                                        <fileset dir="${project.basedir}/target">
-                                            <include name="*.jar" combine.self="override"/>
-                                        </fileset>
-                                    </copy>
-                                </target>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>ant-copy-dockerfile</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <target>
-                                    <copy todir="${output.path}/${artifactId}/">
-                                        <fileset dir="${project.basedir}">
-                                            <include name="Dockerfile" combine.self="override"/>
-                                        </fileset>
-                                    </copy>
-                                </target>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-remote-resources-plugin</artifactId>
-                    <version>1.7.0</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>process</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <resourceBundles>
-                            <resourceBundle>cn.dreamccc:common-web:${project.version}</resourceBundle>
-                        </resourceBundles>
-                    </configuration>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                    <version>3.0.0</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <id>ant-copy-jar</id>-->
+<!--                            <phase>install</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>run</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <target>-->
+<!--                                    <copy todir="${output.path}/${artifactId}/">-->
+<!--                                        <fileset dir="${project.basedir}/target">-->
+<!--                                            <include name="*.jar" combine.self="override"/>-->
+<!--                                        </fileset>-->
+<!--                                    </copy>-->
+<!--                                </target>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
+<!--                        <execution>-->
+<!--                            <id>ant-copy-dockerfile</id>-->
+<!--                            <phase>install</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>run</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <target>-->
+<!--                                    <copy todir="${output.path}/${artifactId}/">-->
+<!--                                        <fileset dir="${project.basedir}">-->
+<!--                                            <include name="Dockerfile" combine.self="override"/>-->
+<!--                                        </fileset>-->
+<!--                                    </copy>-->
+<!--                                </target>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-remote-resources-plugin</artifactId>-->
+<!--                    <version>1.7.0</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>process</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                    <configuration>-->
+<!--                        <resourceBundles>-->
+<!--                            <resourceBundle>cn.dreamccc:common-web:${project.version}</resourceBundle>-->
+<!--                        </resourceBundles>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>

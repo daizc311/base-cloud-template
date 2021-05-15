@@ -1,0 +1,54 @@
+#project:
+#  name: @project.artifactId@
+#  description: @project.description@
+#  version: @docker.build.version@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: @profiles.active@
+  application:
+    name: @project.artifactId@
+  r2dbc:
+    url: r2dbcs:mysql://106.75.230.238:3306/jian_butler?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+    username: daizc
+    password: dzc9669
+  redis:
+    host: 106.75.230.238
+    port: 6379
+  cloud:
+    nacos:
+      server-addr: 106.75.230.238:8848
+      discovery:
+        namespace: 4a9de222-942f-4487-823a-2790443b784f
+      config:
+        namespace: 4a9de222-942f-4487-823a-2790443b784f
+        file-extension: yml
+        shared-configs:
+          - data-id: ${spring.application.name}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+    gateway:
+      routes:
+        - id: business-admin-biz
+          uri: lb://business-admin-biz
+          predicates:
+            - Path=/admin/**
+        - id: business-portal-biz
+          uri: lb://business-portal-biz
+          predicates:
+            - Path=/portal/**
+      default-filters:
+        # 过滤重复的请求头
+        # https://cloud.spring.io/spring-cloud-gateway/reference/html/#_deduperesponseheader_gatewayfilter_factory
+        # https://pinocc.cn/2019/09/07/spring-cloud-gateway-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/
+        - DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - DedupeResponseHeader=Vary, RETAIN_UNIQUE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
