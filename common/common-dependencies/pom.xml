@@ -20,12 +20,12 @@
         <dependencies>
             <dependency>
                 <groupId>cn.dreamccc</groupId>
-                <artifactId>admin-api</artifactId>
+                <artifactId>business-admin-api</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.dreamccc</groupId>
-                <artifactId>portal-api</artifactId>
+                <artifactId>business-portal-api</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -5,8 +5,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>common</module>
-        <module>admin</module>
-        <module>portal</module>
+        <module>business-admin</module>
+        <module>business-portal</module>
+        <module>common-gateway</module>
     </modules>
 
     <groupId>cn.dreamccc</groupId>
@@ -15,22 +16,24 @@
     <name>base-cloud-template</name>
     <description>Demo project for Spring Boot</description>
     <properties>
+        <!-- basic -->
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- maven && build -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-
+        <maven.test.skip>true</maven.test.skip>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
+        <output.path>/builds/kl-cloud-group/kl-cloud/output</output.path>
+        <!-- docker -->
+
+        <!-- 基础版本 -->
         <spring-boot.version>2.4.3</spring-boot.version>
         <spring-cloud.version>2020.0.1</spring-cloud.version>
         <knife4j.version>2.0.8</knife4j.version>
     </properties>
     <dependencies>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.cloud</groupId>-->
-        <!--            <artifactId>spring-cloud-starter-gateway</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -106,37 +109,84 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/application*.*</include>
-                    <include>**/bootstrap*.*</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
         </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>ant-copy-jar</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <copy todir="${output.path}/${artifactId}/">
+                                        <fileset dir="${project.basedir}/target">
+                                            <include name="*.jar" combine.self="override"/>
+                                        </fileset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>ant-copy-dockerfile</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <copy todir="${output.path}/${artifactId}/">
+                                        <fileset dir="${project.basedir}">
+                                            <include name="Dockerfile" combine.self="override"/>
+                                        </fileset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-remote-resources-plugin</artifactId>
+                    <version>1.7.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <resourceBundles>
+                            <resourceBundle>cn.dreamccc:common-web:${project.version}</resourceBundle>
+                        </resourceBundles>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
 
         </pluginManagement>
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <source>8</source>-->
-<!--                    <target>8</target>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
     </build>
 
 
